@@ -1,12 +1,5 @@
 let url = `http://localhost:3000/api/products`;
 let section = document.querySelector('.items');
-// const productName = document.querySelector('.productName');
-// const productDescription = document.querySelector('.productDescription');
-// const img = document.querySelector('article img')
-// const card = document.querySelector('article');
-// const link = document.querySelector('section a')
-
-
 
 // Récupération des données API 
 
@@ -22,6 +15,7 @@ const apiCall = async() => {
     apiData.forEach(element => {
 
         newLink = document.createElement('a');
+        newLink.href = `./product.html?id=${element._id}`;
         newArticle = document.createElement('article');
 
         newImg = document.createElement('img');
@@ -46,14 +40,3 @@ const apiCall = async() => {
 };
 
 apiCall();
-
-
-
-
-
-
-
-
-
-
-
