@@ -1,11 +1,14 @@
 let items = document.querySelector('#cart__items');
+let total = document.querySelector('#totalPrice');
+let product = JSON.parse(localStorage.getItem('product'));
 let productArr = [];
 
+
 function displayBasket() {
-    let product = JSON.parse(localStorage.getItem('product'));
     
-    
+
     // Répartition des données
+    //On itére sur un tableau vide de base qui se rempli avec le html pour chaque produit.
     for (let i = 0; i < product.length; i++) {
     items.innerHTML = productArr = productArr + `
         <article class="cart__item" data-id="${product[i].chosenId}">
@@ -33,74 +36,25 @@ function displayBasket() {
 displayBasket();
 
 
+// Calcul du prix total du panier
 
+let totalPriceArr = [];
 
+function totalPriceMath() {
 
-{/* <article class="cart__item" data-id="${product[i].chosenId}">
-<div class="cart__item__img">
-  <img src="${product[i].chosenImg}" alt="Photographie d'un canapé">
-</div>
-<div class="cart__item__content">
-  <div class="cart__item__content__titlePrice">
-    <h2>${product[i].chosenName}</h2>
-    <p>${product[i].chosenPrice * product[i].chosenQty + '€'}</p>
-  </div>
-  <div class="cart__item__content__settings">
-    <div class="cart__item__content__settings__quantity">
-      <p>Qté : </p>
-      <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${product[i].chosenQty}">
-    </div>
-    <div class="cart__item__content__settings__delete">
-      <p class="deleteItem">Supprimer</p>
-    </div>
-  </div>
-</div>
-</article> */}
-
-
-
-// newArticle = document.createElement('article');
-//         newArticle.classList.add('cart__item');
-//         newArticle.setAttribute('data-id', product[i].chosenId)
-
-//         items.appendChild(newArticle);
-
-//         // Image
-
-//         newDivImg = document.createElement('div');
-//         newDivImg.classList.add('cart__item__img');
-
-//         newArticle.appendChild(newDivImg);
-
-//         newImg = document.createElement('img');
-//         newImg.src = product[i].chosenImg;
-//         newImg.alt = product[i].chosenAlt;
-
-//         newDivImg.appendChild(newImg);
-
-//         // Prix + Nom
-
-//         newDivContent = document.createElement('div');
-//         newDivContent.classList.add('cart__item__content');
-
-//         newPriceTitle = document.createElement('div');
-//         newPriceTitle.classList.add('cart__item__content__titlePrice')
+    for (let j = 0; j < product.length; j++) {
+        cartTotalPrice = product[j].chosenPrice * product[j].chosenQty;
+        // Mettre les prix dans la le tableau totalPriceArr
+        totalPriceArr.push(cartTotalPrice);
         
-//         newName = document.createElement('h2');
-//         newName.innerText = product[i].chosenName;
-//         newPrice = document.createElement('p');
-//         newPrice.innerText = product[i].chosenPrice * product[i].chosenQty + ' € ';
+        // Additionner les prix du tableau totalPrice avec méthode reduce
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        const totalPrice = totalPriceArr.reduce(reducer);
 
-//         newPriceTitle.appendChild(newName);
-//         newPriceTitle.appendChild(newPrice);
-
-
-//         newArticle.appendChild(newDivContent);
-//         newDivContent.appendChild(newPriceTitle)
-
-//         // Quantité
-
-//         newDivSetting = document.createElement('div');
-//         newDivSetting.classList.add('cart__item__content__settings');
-
-//         newQty = document.createElement('div');
+        total.innerHTML =  new Intl.NumberFormat('fr-FR', {
+            style: 'currency',
+            currency: 'EUR',
+        }).format(totalPrice);
+    }
+}
+totalPriceMath();
