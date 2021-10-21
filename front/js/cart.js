@@ -1,12 +1,13 @@
 let items = document.querySelector('#cart__items');
+let productArr = [];
 
 function displayBasket() {
     let product = JSON.parse(localStorage.getItem('product'));
-    console.log(product);
-
+    
+    
     // Répartition des données
     for (let i = 0; i < product.length; i++) {
-        items.innerHTML = product.map(`
+    items.innerHTML = productArr = productArr + `
         <article class="cart__item" data-id="${product[i].chosenId}">
             <div class="cart__item__img">
                 <img src="${product[i].chosenImg}" alt="Photographie d'un canapé">
@@ -14,7 +15,7 @@ function displayBasket() {
             <div class="cart__item__content">
                 <div class="cart__item__content__titlePrice">
                     <h2>${product[i].chosenName}</h2>
-                    <p>${product[i].chosenPrice * product[i].chosenQty + '€'}</p>
+                    <p>${product[i].chosenPrice * product[i].chosenQty + ' € '}</p>
                 </div>
             <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
@@ -26,7 +27,7 @@ function displayBasket() {
                 </div>
             </div>
         </div>
-        </article> `)
+        </article> `
     }
 }
 displayBasket();
