@@ -89,3 +89,15 @@ apiProduct();
 // 	const newStorage = inLocalStorage.filter(p => p.chosenId === productChosen.chosenId & p.chosenColor !== productChosen.chosenColor);
 // 	newStorage.push(productChosen);
 // 	localStorage.setItem('product', JSON.stringify(newStorage));
+
+
+
+// function changeQuantity(productChosen) {
+// 	let basket = this.get();
+// 	let productFound = basket.find(p => p.chosenId == productChosen.chosenColor && p.chosenColor == productChosen.chosenColor);
+// 	productFound.quantity = productChosen.chosenQty;
+// 	if (productFound.quantity <= 0) {
+// 		basket = basket.filter(p => p.chosenId != productChosen.chosenId || p.color != productChosen.chosenColor);
+// 	}
+// 	this.save(basket);
+// }
