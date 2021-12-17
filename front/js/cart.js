@@ -3,9 +3,8 @@ let items = document.querySelector('#cart__items');
 let total = document.querySelector('#totalPrice');
 let product = JSON.parse(localStorage.getItem('product'));
 let productArr = [];
-const orderId = JSON.parse(localStorage.getItem('orderId'));
-console.log(orderId)
-console.log(product);
+// console.log(orderId);
+// console.log(product);
 
 function displayBasket() {
 	// Répartition des données
@@ -245,7 +244,8 @@ form.addEventListener('submit', function (e) {
 				localStorage.setItem('orderId', JSON.stringify(data.orderId));
 				console.log(JSON.parse(localStorage.getItem('orderId')));
 
-				// document.location.href = 'confirmation.html';
+				document.location.href = `./confirmation.html?orderId=${data.orderId}`;
+				console.log(data.orderId);
 			})
 			.catch((error) => {
 				alert('Erreur' + error);
@@ -253,7 +253,15 @@ form.addEventListener('submit', function (e) {
 	}
 });
 
+// Gestion des quantitées via input + bouton suppr
 
+let inputQty = document.querySelectorAll('.itemQuantity');
 
+for (let i = 0; i < inputQty.length; i++) {
+	inputQty[i].addEventListener('change', (e) => {
+		e.preventDefault();
 
+		
+	})
+}
 
