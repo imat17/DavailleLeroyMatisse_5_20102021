@@ -4,7 +4,7 @@ let total = document.querySelector('#totalPrice');
 let product = JSON.parse(localStorage.getItem('product'));
 let productArr = [];
 // console.log(orderId);
-// console.log(product);
+console.log(product);
 
 function displayBasket() {
 	// Répartition des données
@@ -20,6 +20,7 @@ function displayBasket() {
             <div class="cart__item__content">
                 <div class="cart__item__content__titlePrice">
                     <h2>${product[i].chosenName}</h2>
+					<p>${product[i].chosenColor}</p>
                     <p>${product[i].chosenPrice * product[i].chosenQty + ' € '}</p>
                 </div>
             <div class="cart__item__content__settings">
@@ -254,14 +255,49 @@ form.addEventListener('submit', function (e) {
 });
 
 // Gestion des quantitées via input + bouton suppr
+// function changeQty() {
+// 	let inputQty = document.querySelectorAll('.itemQuantity');
 
-let inputQty = document.querySelectorAll('.itemQuantity');
+// 	for (let i = 0; i < inputQty.length; i++) {
+// 		let inputQtyValue = inputQty[i].getAttribute('value');
+// 		console.log(inputQtyValue);
 
-for (let i = 0; i < inputQty.length; i++) {
-	inputQty[i].addEventListener('change', (e) => {
-		e.preventDefault();
+// 		inputQty[i].addEventListener('change', (e) => {
+// 			e.preventDefault();
 
-		
-	})
+// 			let qtyChange = product[i].chosenQty;
+// 			let qtyVal = inputQtyValue[i];
+
+// 			const qtyFind = product.find((el) => el.qtyVal !== qtyChange);
+
+// 			qtyFind.chosenQty = qtyVal;
+// 			product[i].chosenQty = qtyFind.chosenQty;
+
+// 			localStorage.setItem('product', JSON.stringify(product));
+
+// 			location.reload();
+// 		});
+// 	}
+// }
+// changeQty();
+
+function removeBasket() {
+	let suppr = document.querySelectorAll('.deleteItem');
+	for (let i = 0; i < suppr.length; i++) {
+		suppr[i].addEventListener('click', (e) => {
+			e.preventDefault();
+
+			// Selection de l'objet à supprimer
+			let supprId = product[i].chosenId;
+			let supprColor = product[i].chosenColor;
+
+			// Je garde tout les elements différents 
+			product = product.filter(
+				(element) => element.chosenId !== supprId || element.chosenColor !== supprColor
+			);
+			localStorage.setItem('product', JSON.stringify(product));
+			location.reload();
+		});
+	}
 }
-
+removeBasket();

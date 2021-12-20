@@ -53,18 +53,29 @@ const apiProduct = async () => {
 				chosenPrice: productData.price,
 				chosenId: id,
 				chosenQty: quantity.value,
-				chosenColor: colorValue.value
+				chosenColor: colorValue.value,
 			};
 
 			// Transformer JSON en objet JS
 			let inLocalStorage = JSON.parse(localStorage.getItem('product'));
 			console.log(inLocalStorage);
+			console.log(id);
 			// Si produits dans LS
 			if (inLocalStorage) {
-				inLocalStorage.push(productChosen);
-				localStorage.setItem('product', JSON.stringify(inLocalStorage));
-			// } else if (h) {
-			// 	// Si pas de produits
+				const sameProduct = inLocalStorage.find(
+					(element) => element.chosenId === id && element.chosenColor === colorValue.value
+				);
+				if (sameProduct != undefined) {
+					let newQuantity = parseInt(productChosen.chosenQty) + parseInt(sameProduct.chosenQty);
+					sameProduct.chosenQty = newQuantity;
+					inLocalStorage.push(productChosen);
+					localStorage.setItem('product', JSON.stringify(inLocalStorage));
+				} else {
+					inLocalStorage.push(productChosen);
+					localStorage.setItem('product', JSON.stringify(inLocalStorage));
+				}
+
+				// Si pas de produits
 			} else {
 				inLocalStorage = [];
 				inLocalStorage.push(productChosen);
@@ -74,30 +85,4 @@ const apiProduct = async () => {
 	}
 	toLocalStorage();
 };
-
 apiProduct();
-
-// if (!inLocalStorage) {
-// 	inLocalStorage = [];
-// 	inLocalStorage.push(productChosen);
-// 	localStorage.setItem('product', JSON.stringify(inLocalStorage));
-// // Si produits
-// } else if (!inLocalStorage.some(p => p.chosenId === productChosen.chosenId & p.chosenColor === productChosen.chosenColor)){
-// 	inLocalStorage.push(productChosen);
-// 	localStorage.setItem('product', JSON.stringify(inLocalStorage));
-// } else {
-// 	const newStorage = inLocalStorage.filter(p => p.chosenId === productChosen.chosenId & p.chosenColor !== productChosen.chosenColor);
-// 	newStorage.push(productChosen);
-// 	localStorage.setItem('product', JSON.stringify(newStorage));
-
-
-
-// function changeQuantity(productChosen) {
-// 	let basket = this.get();
-// 	let productFound = basket.find(p => p.chosenId == productChosen.chosenColor && p.chosenColor == productChosen.chosenColor);
-// 	productFound.quantity = productChosen.chosenQty;
-// 	if (productFound.quantity <= 0) {
-// 		basket = basket.filter(p => p.chosenId != productChosen.chosenId || p.color != productChosen.chosenColor);
-// 	}
-// 	this.save(basket);
-// }
