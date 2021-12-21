@@ -66,22 +66,72 @@ totalPriceMath();
 
 function changeQty() {
 	let inputQty = document.querySelectorAll('.itemQuantity');
-	let inputQtyValue = inputQty.forEach((elem) => elem.getAttribute('value'));
-	console.log(inputQty);
+	// let inputQtyValue = inputQty.forEach((elem) => elem.getAttribute('value'));
 
-	inputQty.forEach((element) => {
+	// inputQty.forEach((elem) => {
+	for (let i = 0; i < inputQty.length; i++) {
 		this.addEventListener('change', (e) => {
 			e.preventDefault;
 			console.log('coucou');
+			let inputQtyValue = inputQty[i].getAttribute('value');
 
-			const getProduct = JSON.parse(storage.getItem('product'));
-			console.log(getProduct);
-			const editedProduct = { ...getProduct, chosenQty: (getProduct.chosenQty = inputQtyValue) };
-			storage.setItem('product', JSON.stringify(editedProduct));
+			const editedProduct = { ...product, chosenQty: (product.chosenQty = inputQtyValue[i]) };
+			localStorage.setItem('product', JSON.stringify(editedProduct));
+			location.reload();
 		});
-	});
+	}
 }
 changeQty();
+
+// Suppression au clic
+
+function removeBasket() {
+	let suppr = document.querySelectorAll('.deleteItem');
+	for (let i = 0; i < suppr.length; i++) {
+		suppr[i].addEventListener('click', (e) => {
+			e.preventDefault();
+
+			// Selection de l'objet à supprimer
+			let supprId = product[i].chosenId;
+			let supprColor = product[i].chosenColor;
+
+			// Je garde tout les elements différents
+			product = product.filter(
+				(element) => element.chosenId !== supprId || element.chosenColor !== supprColor
+			);
+			localStorage.setItem('product', JSON.stringify(product));
+			location.reload();
+		});
+	}
+}
+removeBasket();
+
+// Gestion des quantitées via input
+// function changeQty() {
+// 	let inputQty = document.querySelectorAll('.itemQuantity');
+
+// 	for (let i = 0; i < inputQty.length; i++) {
+// 		let inputQtyValue = inputQty[i].getAttribute('value');
+// 		console.log(inputQtyValue);
+
+// 		inputQty[i].addEventListener('change', (e) => {
+// 			e.preventDefault();
+
+// 			let qtyChange = product[i].chosenQty;
+// 			let qtyVal = inputQtyValue[i];
+
+// 			const qtyFind = product.find((element) => element.qtyVal !== qtyChange);
+
+// 			qtyFind.chosenQty = qtyVal;
+// 			product[i].chosenQty = qtyFind.chosenQty;
+
+// 			localStorage.setItem('product', JSON.stringify(product));
+
+// 			location.reload();
+// 		});
+// 	}
+// }
+// changeQty();
 
 // ----------------- Formulaire ------------------
 
@@ -253,51 +303,3 @@ form.addEventListener('submit', function (e) {
 			});
 	}
 });
-
-// Gestion des quantitées via input + bouton suppr
-// function changeQty() {
-// 	let inputQty = document.querySelectorAll('.itemQuantity');
-
-// 	for (let i = 0; i < inputQty.length; i++) {
-// 		let inputQtyValue = inputQty[i].getAttribute('value');
-// 		console.log(inputQtyValue);
-
-// 		inputQty[i].addEventListener('change', (e) => {
-// 			e.preventDefault();
-
-// 			let qtyChange = product[i].chosenQty;
-// 			let qtyVal = inputQtyValue[i];
-
-// 			const qtyFind = product.find((el) => el.qtyVal !== qtyChange);
-
-// 			qtyFind.chosenQty = qtyVal;
-// 			product[i].chosenQty = qtyFind.chosenQty;
-
-// 			localStorage.setItem('product', JSON.stringify(product));
-
-// 			location.reload();
-// 		});
-// 	}
-// }
-// changeQty();
-
-function removeBasket() {
-	let suppr = document.querySelectorAll('.deleteItem');
-	for (let i = 0; i < suppr.length; i++) {
-		suppr[i].addEventListener('click', (e) => {
-			e.preventDefault();
-
-			// Selection de l'objet à supprimer
-			let supprId = product[i].chosenId;
-			let supprColor = product[i].chosenColor;
-
-			// Je garde tout les elements différents 
-			product = product.filter(
-				(element) => element.chosenId !== supprId || element.chosenColor !== supprColor
-			);
-			localStorage.setItem('product', JSON.stringify(product));
-			location.reload();
-		});
-	}
-}
-removeBasket();

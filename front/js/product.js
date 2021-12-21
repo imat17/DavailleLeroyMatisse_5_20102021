@@ -63,13 +63,13 @@ const apiProduct = async () => {
 			// Si produits dans LS
 			if (inLocalStorage) {
 				const sameProduct = inLocalStorage.find(
-					(element) => element.chosenId === id && element.chosenColor === colorValue.value
+					(element) => element.chosenId == id && element.chosenColor == colorValue.value
 				);
-				if (sameProduct != undefined) {
+				if (sameProduct) {
 					let newQuantity = parseInt(productChosen.chosenQty) + parseInt(sameProduct.chosenQty);
 					sameProduct.chosenQty = newQuantity;
-					inLocalStorage.push(productChosen);
 					localStorage.setItem('product', JSON.stringify(inLocalStorage));
+					return;
 				} else {
 					inLocalStorage.push(productChosen);
 					localStorage.setItem('product', JSON.stringify(inLocalStorage));
