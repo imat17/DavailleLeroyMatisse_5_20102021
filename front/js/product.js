@@ -58,29 +58,31 @@ const apiProduct = async () => {
 
 			// Transformer JSON en objet JS
 			let inLocalStorage = JSON.parse(localStorage.getItem('product'));
-			console.log(inLocalStorage);
-			console.log(id);
+
 			// Si produits dans LS
-			if (inLocalStorage) {
-				const sameProduct = inLocalStorage.find(
-					(element) => element.chosenId == id && element.chosenColor == colorValue.value
-				);
-				if (sameProduct) {
-					let newQuantity = parseInt(productChosen.chosenQty) + parseInt(sameProduct.chosenQty);
-					sameProduct.chosenQty = newQuantity;
-					localStorage.setItem('product', JSON.stringify(inLocalStorage));
-					return;
+			// if (chosenColor.value!= '' && chosenQty.value != 0) {
+				if (inLocalStorage) {
+					const sameProduct = inLocalStorage.find(
+						(element) => element.chosenId == id && element.chosenColor == colorValue.value
+					);
+					// Si les produits sont les mêmes , addition des quantitées
+					if (sameProduct) {
+						let newQuantity = parseInt(productChosen.chosenQty) + parseInt(sameProduct.chosenQty);
+						sameProduct.chosenQty = newQuantity;
+						localStorage.setItem('product', JSON.stringify(inLocalStorage));
+						return;
+					} else {
+						inLocalStorage.push(productChosen);
+						localStorage.setItem('product', JSON.stringify(inLocalStorage));
+					}
+
+					// Si pas de produits
 				} else {
+					inLocalStorage = [];
 					inLocalStorage.push(productChosen);
 					localStorage.setItem('product', JSON.stringify(inLocalStorage));
 				}
-
-				// Si pas de produits
-			} else {
-				inLocalStorage = [];
-				inLocalStorage.push(productChosen);
-				localStorage.setItem('product', JSON.stringify(inLocalStorage));
-			}
+			// }
 		});
 	}
 	toLocalStorage();

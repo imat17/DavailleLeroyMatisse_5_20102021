@@ -4,7 +4,7 @@ let total = document.querySelector('#totalPrice');
 let product = JSON.parse(localStorage.getItem('product'));
 let productArr = [];
 // console.log(orderId);
-console.log(product);
+// console.log(product);
 
 function displayBasket() {
 	// Répartition des données
@@ -64,24 +64,31 @@ totalPriceMath();
 
 // Modifier les quantités produits
 
-function changeQty() {
-	let inputQty = document.querySelectorAll('.itemQuantity');
-	// let inputQtyValue = inputQty.forEach((elem) => elem.getAttribute('value'));
+// function changeQty() {
+// 	let inputQty = document.querySelectorAll('.itemQuantity');
 
-	// inputQty.forEach((elem) => {
-	for (let i = 0; i < inputQty.length; i++) {
-		this.addEventListener('change', (e) => {
-			e.preventDefault;
-			console.log('coucou');
-			let inputQtyValue = inputQty[i].getAttribute('value');
+// 	console.log(newProduct);
+// 	// let inputQtyValue = inputQty.forEach((elem) => elem.getAttribute('value'));
 
-			const editedProduct = { ...product, chosenQty: (product.chosenQty = inputQtyValue[i]) };
-			localStorage.setItem('product', JSON.stringify(editedProduct));
-			location.reload();
-		});
-	}
-}
-changeQty();
+// 	// inputQty.forEach((elem) => {
+// 	for (let i = 0; i < inputQty.length; i++) {
+// 		this.addEventListener('change', (e) => {
+// 			e.preventDefault;
+// 			let newProduct = JSON.parse(localStorage.getItem('product'));
+// 			console.log(localStorage.getItem('product'));
+// 			console.log('coucou');
+// 			let inputQtyValue = inputQty[i].getAttribute('value');
+
+// 			console.log(newProduct);
+// 			newProduct[i].chosenQty = inputQtyValue;
+// 			// const editedProduct = {...newProduct, chosenQty: (product.chosenQty = inputQtyValue[i]) };
+
+// 			localStorage.setItem('product', JSON.stringify(newProduct));
+// 			location.reload();
+// 		});
+// 	}
+// }
+// changeQty();
 
 // Suppression au clic
 
@@ -106,7 +113,7 @@ function removeBasket() {
 }
 removeBasket();
 
-// Gestion des quantitées via input
+// Gestion des quantitées via input ----------------TEST AUTRE METHODE
 // function changeQty() {
 // 	let inputQty = document.querySelectorAll('.itemQuantity');
 
