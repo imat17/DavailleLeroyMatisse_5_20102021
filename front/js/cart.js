@@ -62,34 +62,6 @@ function totalPriceMath() {
 }
 totalPriceMath();
 
-// Modifier les quantités produits
-
-// function changeQty() {
-// 	let inputQty = document.querySelectorAll('.itemQuantity');
-
-// 	console.log(newProduct);
-// 	// let inputQtyValue = inputQty.forEach((elem) => elem.getAttribute('value'));
-
-// 	// inputQty.forEach((elem) => {
-// 	for (let i = 0; i < inputQty.length; i++) {
-// 		this.addEventListener('change', (e) => {
-// 			e.preventDefault;
-// 			let newProduct = JSON.parse(localStorage.getItem('product'));
-// 			console.log(localStorage.getItem('product'));
-// 			console.log('coucou');
-// 			let inputQtyValue = inputQty[i].getAttribute('value');
-
-// 			console.log(newProduct);
-// 			newProduct[i].chosenQty = inputQtyValue;
-// 			// const editedProduct = {...newProduct, chosenQty: (product.chosenQty = inputQtyValue[i]) };
-
-// 			localStorage.setItem('product', JSON.stringify(newProduct));
-// 			location.reload();
-// 		});
-// 	}
-// }
-// changeQty();
-
 // Suppression au clic
 
 function removeBasket() {
@@ -113,32 +85,29 @@ function removeBasket() {
 }
 removeBasket();
 
-// Gestion des quantitées via input ----------------TEST AUTRE METHODE
-// function changeQty() {
-// 	let inputQty = document.querySelectorAll('.itemQuantity');
+// Gestion des quantitées via input
+function changeQty() {
+	let inputQty = document.querySelectorAll('.itemQuantity');
 
-// 	for (let i = 0; i < inputQty.length; i++) {
-// 		let inputQtyValue = inputQty[i].getAttribute('value');
-// 		console.log(inputQtyValue);
+	for (let i = 0; i < inputQty.length; i++) {
+		inputQty[i].addEventListener('change', (e) => {
+			e.preventDefault();
 
-// 		inputQty[i].addEventListener('change', (e) => {
-// 			e.preventDefault();
+			let qtyChange = product[i].chosenQty;
+			let qtyVal = inputQty[i].value;
 
-// 			let qtyChange = product[i].chosenQty;
-// 			let qtyVal = inputQtyValue[i];
+			const qtyFind = product.find((element) => element.qtyVal !== qtyChange);
 
-// 			const qtyFind = product.find((element) => element.qtyVal !== qtyChange);
+			qtyFind.chosenQty = qtyVal;
+			product[i].chosenQty = qtyFind.chosenQty;
 
-// 			qtyFind.chosenQty = qtyVal;
-// 			product[i].chosenQty = qtyFind.chosenQty;
+			localStorage.setItem('product', JSON.stringify(product));
 
-// 			localStorage.setItem('product', JSON.stringify(product));
-
-// 			location.reload();
-// 		});
-// 	}
-// }
-// changeQty();
+			location.reload();
+		});
+	}
+}
+changeQty();
 
 // ----------------- Formulaire ------------------
 
